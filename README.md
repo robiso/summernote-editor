@@ -1,4 +1,5 @@
-# summernote-editor
-### Author: Prakai Nadee (https://github.com/prakai)
+## Summernote WYSIWYG editor
+#### Author: Prakai Nadee (https://github.com/prakai)
+#### Description: WonderCMS plugin that adds an editor to all content editable fields
 
-WonderCMS plugin that adds the Summernote WYSIWYG editor to all content editable fields
+![Alt text](/summernote-editor-plugin.png?raw=true "Summernote editor screenshot")
