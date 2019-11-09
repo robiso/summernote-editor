@@ -1,4 +1,4 @@
-# Summernote WYSIWYG editor
+# Summernote WYSIWYG editor for WonderCMS (Author: Prakai Nadee)
 
 ## Description
 This WonderCMS plugin adds a What You See Is What You Get (WYSIWYG) editor to all content editable fields.
