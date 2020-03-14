@@ -1,3 +1,14 @@
+/**
+ * Summernote editor plugin.
+ *
+ * It transforms all the editable areas into the Summernote inline editor.
+ *
+ * @author Prakai Nadee <prakai@rmuti.acth>
+ * @forked by Robert Isoski @robertisoski
+ * @forked by Stephan Stanisic @stephanstanisic
+ * @version 3.0.7
+ */
+
 $(function() {
     var editElements = {};
     $('.editable').summernote({
@@ -31,7 +42,7 @@ $(function() {
                     })
                     .done(function() {
                         $("#save").show();
-                        $('#save').delay(100).fadeOut(); 
+                        $('#save').delay(100).fadeOut();
                     });
                 }
             }
