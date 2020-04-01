@@ -3,17 +3,19 @@
  * Summernote editor plugin.
  *
  * It transforms all the editable areas into the Summernote inline editor.
+ * Now with tokens and login check.
  *
  * @author Prakai Nadee <prakai@rmuti.acth>
  * @forked by Robert Isoski @robertisoski
- * @version 3.0.0
+ * @forked by Stephan Stanisic @stephanstanisic
+ * @version 3.0.7
  */
 
 global $Wcms;
 
 if (defined('VERSION')) {
     define('version', VERSION);
-    defined('version') OR die('Direct access is not allowed.');
+    defined('version') or die('Direct access is not allowed.');
 }
 
 $Wcms->addListener('js', 'loadSummerNoteJS');
@@ -26,18 +28,18 @@ function initialSummerNoteVariables($contents) {
     $subside = $contents[1];
 
     $contents_path = $Wcms->getConfig('contents_path');
-    if (!$contents_path) {
+    if (! $contents_path) {
         $Wcms->setConfig('contents_path', $Wcms->filesPath);
         $contents_path = $Wcms->filesPath;
     }
-    $contents_path_n = trim($contents_path, "/");
+    $contents_path_n = trim($contents_path, '/');
     if ($contents_path != $contents_path_n) {
         $contents_path = $contents_path_n;
         $Wcms->setConfig('contents_path', $contents_path);
     }
     $_SESSION['contents_path'] = $contents_path;
 
-    return array($content, $subside);
+    return [$content, $subside];
 }
 
 function loadSummerNoteJS($args) {
@@ -50,6 +52,7 @@ function loadSummerNoteJS($args) {
 EOT;
         $args[0] .= $script;
     }
+
     return $args;
 }
 
@@ -62,5 +65,6 @@ function loadSummerNoteCSS($args) {
 EOT;
         $args[0] .= $script;
     }
+
     return $args;
 }
