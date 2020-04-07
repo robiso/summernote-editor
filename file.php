@@ -18,11 +18,11 @@ include_once '../../index.php';
 $Wcms = new Wcms();
 $Wcms->init();
 
-if (! $Wcms->loggedIn
-    && $_SESSION['token'] === $_GET['token']
-    && $Wcms->hashVerify($_GET['token'])) {
-    die('Please login first.');
-}
+$requestToken = $_POST['token'] ?? $_GET['token'] ?? null;
+if(!$Wcms->loggedIn
+    || $_SESSION['token'] !== $requestToken
+    || !$Wcms->hashVerify($requestToken))
+    die("Access denied.");
 
 $contents_path = isset($_SESSION['contents_path']) ? $_SESSION['contents_path'] : 'data/files/summernote';
 $contents_path = $contents_path ? $contents_path : 'data/files/summernote';
