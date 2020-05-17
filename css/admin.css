@@ -1,3 +1,49 @@
 .note-editor, .note-editing-area{background-color:transparent !important;color:inherit !important}
 .note-editor.note-frame .note-editing-area .note-editable{color:inherit; background-color:transparent !important}
 .note-editor.note-frame {border: 2px dashed #ccc}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+        border-top-color: currentcolor;
+        border-top-style: solid;
+        border-top-width: 0.3em;
+    border-right: .3em solid transparent;
+        border-right-color: transparent;
+        border-right-style: solid;
+        border-right-width: 0.3em;
+    border-bottom: 0;
+        border-bottom-color: currentcolor;
+        border-bottom-style: none;
+        border-bottom-width: 0px;
+    border-left: .3em solid transparent;
+        border-left-color: transparent;
+        border-left-style: solid;
+        border-left-width: 0.3em;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable {
+    color: inherit !important;
+    word-wrap: break-word;
+}
+
+
+button, input, optgroup, select, textarea {
+    font: inherit;
+    color: initial;
+}
+
+.note-editor.note-airframe .note-editing-area .note-editable, .note-editor.note-frame .note-editing-area .note-editable {
+    color: inherit;
+}
+
+.note-modal {
+    color: #444;
+    text-align: left;
+}
+
+.note-toolbar {
+    text-align: center;
+}
