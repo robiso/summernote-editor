@@ -8,7 +8,7 @@ $(function() {
             ['font', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['fontsize', 'color']],
             ['para', ['paragraph']],
-            ['insert', ['link','image', 'doc', 'video']], // image and doc are customized buttons
+            ['insert', ['link','image', 'doc', 'picture', 'video']], // image and doc are customized buttons
             ['table', ['table']],
             ['misc', ['codeview']],
         ],
