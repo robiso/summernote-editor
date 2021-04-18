@@ -1,7 +1,6 @@
 .note-editor, .note-editing-area{background-color:transparent !important;color:inherit !important}
 .note-editor.note-frame .note-editing-area .note-editable{color:inherit; background-color:transparent !important}
 .note-editor.note-frame {border: 2px dashed #ccc}
-.note-toolbar {z-index: 1024;}
 .dropdown-toggle::after {
     display: inline-block;
     margin-left: .255em;
