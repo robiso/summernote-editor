@@ -29,6 +29,9 @@
     word-wrap: break-word;
 }
 
+.popover a {
+    color: #337ab7 !important;
+}
 
 button, input, optgroup, select, textarea {
     font: inherit;
