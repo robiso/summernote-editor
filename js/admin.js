@@ -19,6 +19,12 @@ $(function() {
             },
             onBlur: function() {
                 if (editElements[$(this).attr('id')]!=undefined) {
+                    // Confirmation popup for saving changes (set in the database)
+                    if (typeof saveChangesPopup !== 'undefined' && saveChangesPopup && !confirm('Save new changes?')) {
+                        alert("Changed are not saved, you can continue to edit or refresh the page.");
+                        return
+                    }
+
                     var id = $(this).attr('id');
                     var content = editElements[$(this).attr('id')];
                     var target = ($(this).attr('data-target')!=undefined) ? $(this).attr('data-target'):'pages';
