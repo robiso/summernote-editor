@@ -8,6 +8,6 @@
             "summary": "Adds an WYSIWYG editor to all content editable fields.",
             "version": "3.2.1",
             "image": "https://raw.githubusercontent.com/robiso/summernote-editor/master/preview.jpg"
-        },
+        }
     }
 }
