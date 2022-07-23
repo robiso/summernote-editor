@@ -5,6 +5,7 @@ $(function() {
     });
 
     var editElements = {};
+    let timeoutSave;
     $('.editable').summernote({
         airMode: false,
         toolbar: [
@@ -38,8 +39,12 @@ $(function() {
             onChange: function(contents, $editable) {
                 editElements[$(this).attr('id')] = contents;
             },
-            onBlur: function() {
-                saveData($(this));
+            onFocus: function (e) {
+                clearTimeout(timeoutSave)
+            },
+            onBlur: function(e) {
+                const that = $(this);
+                timeoutSave = setTimeout(function () { saveData(that) }, 200)
             }
         },
     });
