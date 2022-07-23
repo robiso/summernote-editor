@@ -31,7 +31,7 @@ $(function() {
                     const imgNode = document.createElement('img');
                     imgNode.src = `${rootURL}data/files/${file.name}`;
                     $('#save').fadeOut();
-                    $('.editable').summernote('insertNode', imgNode);
+                    $(this).summernote('insertNode', imgNode);
                     saveData($(this));
                 }
             },
@@ -45,7 +45,6 @@ $(function() {
     });
 
     function saveData(editor) {
-        console.log(editElements[editor.attr('id')])
         if (editElements[editor.attr('id')]!=undefined) {
             // Confirmation popup for saving changes (set in the database)
             if (typeof saveChangesPopup !== 'undefined' && saveChangesPopup && !confirm('Save new changes?')) {
