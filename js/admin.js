@@ -21,7 +21,26 @@ $(function() {
         placeholder: 'Click here to enter content.',
         callbacks: {
             onImageUpload: async function (files) {
-                for (const file of files) {
+                for (const originalFile of files) {
+                    if (originalFile instanceof File === false || originalFile.type.indexOf('image/') !== 0) {
+                        console.log('Warning: file is not an image.');
+                        return;
+                    }
+
+                    const options = {
+                        maxSizeMB: 10,
+                        maxWidthOrHeight: 1920,
+                    }
+                    let file = originalFile;
+
+                    try {
+                        file = await imageCompression(originalFile, options);
+                    } catch (e) {
+                        console.error('Error: image was not compressed. Fallback to user' +
+                          ' uploaded file.');
+                        console.error(e);
+                    }
+
                     const formData = new FormData();
 
                     formData.append("token", token);
