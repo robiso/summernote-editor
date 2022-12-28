@@ -64,9 +64,13 @@ button, input, optgroup, select, textarea {
 	color: inherit;
 }
 
-.note-modal {
+.note-modal, .note-modal h4 {
 	color: #444;
 	text-align: left;
+}
+
+.note-modal .btn.btn-primary {
+	color: #fff !important;
 }
 
 .note-toolbar {
