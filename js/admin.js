@@ -53,7 +53,7 @@ $(function() {
                     await fetch('', {method: "POST", body: formData});
 
                     const imgNode = document.createElement('img');
-                    imgNode.src = `${rootURL}data/files/${file.name}`;
+                    imgNode.src = `${rootURL}data/files/${originalFileName}`;
                     $('#save').fadeOut();
                     $(this).summernote('insertNode', imgNode);
                     saveData($(this));
