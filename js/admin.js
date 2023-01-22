@@ -41,15 +41,19 @@ $(function() {
                         console.error(e);
                     }
 
+                    // Get filename from original file and filter the html tags
+                    const originalFileName = originalFile.name.replace(/<[^>]*>?/gm, '');
                     const formData = new FormData();
 
                     formData.append("token", token);
-                    formData.append("uploadFile", file);
+                    // As file might be a blob (due to compression), we need to pass a filename
+                    // separately
+                    formData.append("uploadFile", file, originalFileName);
                     $("#save").show();
                     await fetch('', {method: "POST", body: formData});
 
                     const imgNode = document.createElement('img');
-                    imgNode.src = `${rootURL}data/files/${file.name}`;
+                    imgNode.src = `${rootURL}data/files/${originalFileName}`;
                     $('#save').fadeOut();
                     $(this).summernote('insertNode', imgNode);
                     saveData($(this));
