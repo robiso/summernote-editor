@@ -91,6 +91,14 @@
                     ui.onDialogShown(self.$dialog, function() {
                         context.triggerEvent('dialog.shown');
 
+                        var titleMap = {
+                            'images': 'Insert Image',
+                            'docs': 'Insert Document',
+                            'videos': 'Insert Video or Music'
+                        };
+                        self.$dialog.find('.modal-title').text(titleMap[t] || 'Insert File');
+
+
                         // Fetch files from server
                         $.get({
                             url: window.location.href,
@@ -100,12 +108,22 @@
                             },
                             success: function(files) {
                                 var $filesList = self.$dialog.find('#filesList');
+                                var $fileUrlLabel = self.$dialog.find('label[for="fileUrl"]');
+                                if (self.filetype === 'videos') {
+                                    $fileUrlLabel.text('URL of video or music file');
+                                } else if (self.filetype === 'images') {
+                                    $fileUrlLabel.text('URL of image');
+                                } else {
+                                        var node = document.createElement('a');
+                                        $(node).attr('href', fileUrl).attr('target', '_blank').html(self.range.toString());
+                                        context.invoke('editor.insertNode', node);
+                                }
                                 $filesList.empty();
                                 files.forEach(function(file) {
                                     var $item = $('<div class="file-item" style="padding: 5px; cursor: pointer; border-bottom: 1px solid #eee;">' + file + '</div>');
                                     $item.on('click', function() {
                                         self.file = file;
-                                        self.$dialog.find('#fileUrl').val('data/files/' + file); // ← THIS LINE CHANGED
+                                        self.$dialog.find('#fileUrl').val(wcmsFilesUrl + file);
                                     });
                                     $filesList.append($item);
                                 });
@@ -117,21 +135,15 @@
 
                         $dialogBtn.off('click').click(function(event) {
                             event.preventDefault();
-
+                        
                             // ADD PATH VALIDATION
                             let finalUrl = self.$dialog.find('#fileUrl').val();
                             if (!finalUrl.startsWith('http') && !finalUrl.startsWith('/')) {
-                                finalUrl = '/' + finalUrl; // Add leading slash for absolute path
+                                finalUrl = '/' + finalUrl;
                             }
                             
-                            if (self.filetype === 'images') {
-                                // FIX: Use proper Summernote image insertion
-                                context.invoke('editor.insertImage', finalUrl, function($image) {
-                                    $image.css('max-width', '100%');
-                                    $image.attr('alt', self.file);
-                                });
-                            }
-
+                            // REMOVED THE DUPLICATE IMAGE INSERTION HERE
+                        
                             self.fileLocal = true;
                             if (self.file === '') {
                                 if (self.$dialog.find('#fileUrl').val() !== '') {
@@ -140,10 +152,13 @@
                                 }
                             }
                             if (self.file !== '') {
-                                var fileUrl = self.fileLocal ? 'files/' + self.file : self.file;
+                                var fileUrl = self.fileLocal ? wcmsFilesUrl + self.file : self.file;
                                 if (self.filetype === 'images') {
                                     context.invoke('editor.restoreRange');
-                                    context.invoke('editor.insertImage', fileUrl);
+                                    context.invoke('editor.insertImage', fileUrl, function($image) {
+                                        $image.css('max-width', '100%');
+                                        $image.attr('alt', self.file);
+                                    });
                                 } else {
                                     context.invoke('editor.restoreRange');
                                     var node = document.createElement('a');
@@ -156,6 +171,7 @@
                             }
                             deferred.resolve({ action: 'Files dialog OK clicked...' });
                         });
+
                     });
 
                     ui.onDialogHidden(self.$dialog, function() {
@@ -169,6 +185,7 @@
                 });
             };
         },
+
 
         'doc': function(context) {
             var ui = $.summernote.ui;
@@ -193,6 +210,19 @@
                 });
                 var $image = button.render();
                 return $image;
+            });
+        },
+        
+        'video': function(context) {
+            var ui = $.summernote.ui;
+            context.memo('button.video', function() {
+                var button = ui.button({
+                    contents: '<i class="glyphicon glyphicon-film"/>',
+                    tooltip: 'Video',
+                    click: context.createInvokeHandler('files.showDialog', 'videos')
+                });
+                var $video = button.render();
+                return $video;
             });
         }
     });

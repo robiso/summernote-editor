@@ -70,7 +70,7 @@ if ($Wcms->loggedIn && isset($_GET['summernoteListFiles'])) {
                 }
                 break;
             case 'videos':
-                $videoExts = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+                $videoExts = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mp3', 'wav', 'm4a'];
                 if (in_array($ext, $videoExts)) {
                     $filteredFiles[] = $file;
                 }
@@ -82,8 +82,6 @@ if ($Wcms->loggedIn && isset($_GET['summernoteListFiles'])) {
     }
 
     $log[] = "Filtered to " . count($filteredFiles) . " files";
-    error_log("Summernote file list: " . print_r($log, true));
-    
     echo json_encode($filteredFiles);
     exit;
 }
@@ -117,7 +115,11 @@ function initialSummerNoteVariables($contents) {
 function loadSummerNoteJS($args) {
     global $Wcms;
     if ($Wcms->loggedIn) {
+        $filesUrl = $Wcms->url('data/files/');
         $script = <<<EOT
+        <script>
+            var wcmsFilesUrl = '{$filesUrl}';
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" integrity="sha384-tBLz28MeJJUXRcXrlNxPzl9V3iBhZz2buE5K37XPFyxvSyt5VgEv9wU6rzrzhsom" crossorigin="anonymous"></script>
@@ -129,6 +131,7 @@ EOT;
     }
     return $args;
 }
+
 
 function loadSummerNoteCSS($args) {
     global $Wcms;
