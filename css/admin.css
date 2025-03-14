@@ -76,3 +76,7 @@ button, input, optgroup, select, textarea {
 .note-toolbar {
 	text-align: center;
 }
+
+.note-btn-primary.note-video-btn {
+	background-color: #337ab7;
+}
