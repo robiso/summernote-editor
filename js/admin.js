@@ -1,5 +1,5 @@
 $(function() {
-    // Fix for admin settings corectly removing the active class in the menu
+    // Fix for admin settings correctly removing the active class in the menu
     $(".nav-tabs li.nav-item a.nav-link").click(function() {
         $(".nav-tabs li.nav-item a.nav-link").removeClass('active');
     });
@@ -14,7 +14,7 @@ $(function() {
             ['font', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['fontsize', 'color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'doc', 'picture', 'video']], // image and doc are customized buttons
+            ['insert', ['link', 'doc', 'image', 'video']], // CHANGED 'picture' to 'image'
             ['table', ['table']],
             ['misc', ['codeview']],
         ],
@@ -36,8 +36,7 @@ $(function() {
                     try {
                         file = await imageCompression(originalFile, options);
                     } catch (e) {
-                        console.error('Error: image was not compressed. Fallback to user' +
-                          ' uploaded file.');
+                        console.error('Error: image was not compressed. Fallback to user uploaded file.');
                         console.error(e);
                     }
 
@@ -46,8 +45,7 @@ $(function() {
                     const formData = new FormData();
 
                     formData.append("token", token);
-                    // As file might be a blob (due to compression), we need to pass a filename
-                    // separately
+                    // As file might be a blob (due to compression), we need to pass a filename separately
                     formData.append("uploadFile", file, originalFileName);
                     $("#save").show();
                     await fetch('', {method: "POST", body: formData});
@@ -76,7 +74,7 @@ $(function() {
         if (editElements[editor.attr('id')]!=undefined) {
             // Confirmation popup for saving changes (set in the database)
             if (typeof saveChangesPopup !== 'undefined' && saveChangesPopup && !confirm('Save new changes?')) {
-                alert("Changed are not saved, you can continue to edit or refresh the page.");
+                alert("Changes are not saved, you can continue to edit or refresh the page.");
                 return
             }
 
